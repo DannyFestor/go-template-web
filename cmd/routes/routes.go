@@ -7,11 +7,8 @@ import (
 func Get() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	apiRoutes := api()
-	webRoutes := web()
-
-	mux.Handle("/api/v1/", http.StripPrefix("/api/v1", apiRoutes))
-	mux.Handle("/", webRoutes)
+	mux.Handle("/api/v1/", http.StripPrefix("/api/v1", api()))
+	mux.Handle("/", web())
 
 	return mux
 }

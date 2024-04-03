@@ -1,0 +1,71 @@
+- [ ] Makefile - Keep Makefile always current
+- [ ] Start Web Server
+- [ ] Tests for everyting
+- [ ] Load configuration from .env
+- [ ] Prepare Database Script ?
+  - [ ] Create Database
+  - [ ] Restrict Database to Specified User
+  - [ ] Activate citext extension
+- [ ] Render Templates
+  - [ ] Install Tailwind.css
+  - [ ] Use HTMX (?)
+    - [ ] HTMX headers etc?
+  - [ ] Alpine.js
+    - [ ] Alpine.js plugins?
+  - [ ] Make a buffer helper
+  - [ ] Load templates from file system
+    - [ ] Embed file system?
+  - [ ] Template Functions (?)
+    - [ ] Human Readable Date
+    - [ ] Other functions?
+  - [ ] Standard Data
+    - [ ] Current Date
+    - [ ] User Object (if available)
+    - [ ] CSRF Token
+    - [ ] Flash Message
+    - [ ] Form Data
+      - [ ] GolangCollage Forms?
+- [ ] Form Validation Helpers
+- [ ] App Error Helpers
+- [ ] Make app configuration
+- [ ] Connect to DB
+- [ ] Connect to Redis (?)
+- [ ] Make Mailer Object
+- [ ] User Model
+  - [ ] User Table
+    - [ ] 2FA Fields?
+    - [ ] Social Auth Fields / OAuth
+  - [ ] Password_Resets Table
+  - [ ] Session Table?
+- [ ] User Service
+- [ ] User Routes
+  - [ ] Login
+  - [ ] Register
+  - [ ] Forgot Password
+    - [ ] Input Email Page
+    - [ ] Reset Password Page
+  - [ ] Verify Email
+    - [ ] An Email has been Sent Page
+    - [ ] Verify your email page
+  - [ ] Profile
+    - [ ] Update Email
+      - [ ] Reverify email
+      - [ ] Change Password
+- [ ] Use tmpl instead of Go templates (?)
+- [ ] Add Middlewares
+  - [ ] Metrics
+  - [ ] Logging
+  - [ ] Rate Limiting
+  - [ ] CORS (?)
+  - [ ] CSRF
+  - [ ] Secure Headers
+  - [ ] Panic Helper
+  - [ ] Graceful Shutdown
+  - [ ] Get User from Session
+    - [ ] Auth
+    - [ ] Verified
+- [ ] Websockets or SSE?
+- [ ] Analytics?
+- [ ] URL Signing?
+  - [ ] Signed Url Middleware
+  - [ ] Invalidate with time stamp

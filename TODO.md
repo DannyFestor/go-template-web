@@ -7,11 +7,13 @@
   - [ ] Restrict Database to Specified User
   - [ ] Activate citext extension
 - [ ] Render Templates
-  - [ ] Install Tailwind.css
-  - [ ] Use HTMX (?)
-    - [ ] HTMX headers etc?
-  - [ ] Alpine.js
-    - [ ] Alpine.js plugins?
+  - [ ] Assets
+    - [ ] Install Tailwind.css
+    - [ ] Use HTMX (?)
+      - [ ] HTMX headers etc?
+    - [ ] Alpine.js
+      - [ ] Alpine.js plugins?
+    - [ ] Use DataStar as Alternative to HTMX & Alpine?
   - [ ] Make a buffer helper
   - [ ] Load templates from file system
     - [ ] Embed file system?

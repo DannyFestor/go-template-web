@@ -23,7 +23,7 @@ confirm:
 ## run: run the web application
 .PHONY: run
 run:
-	go run ./cmd/web
+	go run ./cmd/app
 
 ## db/psql: connect to the database using psql
 .PHONY: db/psql

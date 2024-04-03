@@ -20,10 +20,10 @@ confirm:
 # DEVELOPMENT     #
 #=================#
 
-## run/api: run the cmd/api application
-.PHONY: run/api
-run/api:
-	go run ./cmd/api -db-dsn=${DATABASE_DNS} -jwt-secret=${JWT_SECRET}
+## run: run the web application
+.PHONY: run
+run:
+	go run ./cmd/web
 
 ## db/psql: connect to the database using psql
 .PHONY: db/psql

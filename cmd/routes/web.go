@@ -1,25 +1,17 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/DannyFestor/go-template-web.git/cmd/controllers"
 )
 
-func web() *http.ServeMux {
+func web(c *controllers.Controllers) *http.ServeMux {
 	mux := http.NewServeMux()
 
-	mux.Handle("GET /", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		query := r.URL.Query()
-		fmt.Println("Query!")
-		fmt.Println(query)
-
-		if query.Get("name") == "" {
-			w.Write([]byte("Hello World, from Web"))
-			return
-		}
-
-		w.Write([]byte(fmt.Sprintf("Hello %s, from Web", query.Get("name"))))
-	}))
+	mux.Handle("GET /{error}", c.ErrorController.Handle(404))
+	mux.Handle("GET /", c.HomeController.Index())
+	mux.Handle("GET /dashboard", c.UserController.Dashboard())
 
 	return mux
 }

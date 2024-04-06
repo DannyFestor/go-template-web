@@ -1,12 +1,12 @@
-- [ ] Makefile - Keep Makefile always current
-- [ ] Start Web Server
+- [X] Makefile - Keep Makefile always current
+- [X] Start Web Server
 - [ ] Tests for everyting
 - [ ] Load configuration from .env
 - [ ] Prepare Database Script ?
   - [ ] Create Database
   - [ ] Restrict Database to Specified User
   - [ ] Activate citext extension
-- [ ] Render Templates
+- [X] Render Templates
   - [ ] Assets
     - [ ] Install Tailwind.css
     - [ ] Use HTMX (?)
@@ -29,7 +29,7 @@
       - [ ] GolangCollage Forms?
 - [ ] Form Validation Helpers
 - [ ] App Error Helpers
-- [ ] Make app configuration
+- [X] Make app configuration
 - [ ] Connect to DB
 - [ ] Connect to Redis (?)
 - [ ] Make Mailer Object
@@ -56,7 +56,7 @@
 - [ ] Use tmpl instead of Go templates (?)
 - [ ] Add Middlewares
   - [ ] Metrics
-  - [ ] Logging
+  - [X] Logging
   - [ ] Rate Limiting
   - [ ] CORS (?)
   - [ ] CSRF

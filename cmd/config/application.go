@@ -1,6 +1,7 @@
 package config
 
 import (
+	"html/template"
 	"log/slog"
 	"os"
 	"time"
@@ -15,9 +16,11 @@ type Application struct {
 	// db
 	// mail
 	// session
+
+	Templates map[string]*template.Template
 }
 
-func NewApplication() *Application {
+func NewApplication(templateCache map[string]*template.Template) *Application {
 	loggerOptions := &tint.Options{
 		Level:      slog.LevelDebug,
 		TimeFormat: time.DateTime,
@@ -25,6 +28,7 @@ func NewApplication() *Application {
 	logger := slog.New(tint.NewHandler(os.Stdout, loggerOptions))
 
 	return &Application{
-		Logger: logger,
+		Logger:    logger,
+		Templates: templateCache,
 	}
 }

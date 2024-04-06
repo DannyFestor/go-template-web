@@ -4,14 +4,22 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"path/filepath"
 
 	"github.com/DannyFestor/go-template-web.git/cmd/config"
 	"github.com/DannyFestor/go-template-web.git/cmd/routes"
+	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
 func main() {
 	conf := config.NewConfig()
-	app := config.NewApplication()
+
+	templateCache, err := templates.NewTemplateCatche(filepath.Join("resources", "views"))
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(templateCache)
+	app := config.NewApplication(templateCache)
 
 	handler := routes.Get(app)
 
@@ -25,7 +33,7 @@ func main() {
 	}
 
 	app.Logger.Info(fmt.Sprintf("Running on Port %s", conf.Port))
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 	if err != nil {
 		panic("Not working!!")
 	}

@@ -12,8 +12,8 @@ type Controllers struct {
 
 func Init(app *config.Application) *Controllers {
 	return &Controllers{
-		ErrorController: &ErrorController{App: app},
-		HomeController:  &HomeController{App: app},
-		UserController:  &UserController{App: app},
+		ErrorController: &ErrorController{app: app},
+		HomeController:  &HomeController{app: app},
+		UserController:  &UserController{app: app},
 	}
 }

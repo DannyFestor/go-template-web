@@ -1,14 +1,14 @@
-package pages
+package response
 
 import (
 	"html/template"
 	"io"
-	"testing"
 
-	"github.com/DannyFestor/go-template-web.git/cmd/config"
+	// "io"
+	"testing"
 )
 
-func TestRender(t *testing.T) {
+func TestView(t *testing.T) {
 	templates := make(map[string]*template.Template)
 
 	tmpl, err := template.New("base").Parse("")
@@ -18,7 +18,7 @@ func TestRender(t *testing.T) {
 
 	templates["ok"] = tmpl
 
-	app := &config.Application{
+	response := &Response{
 		Templates: templates,
 	}
 
@@ -26,12 +26,12 @@ func TestRender(t *testing.T) {
 	var d data
 	w := io.Discard
 
-	err = Render(app, w, "ok", d)
+	err = response.View(w, "ok", d)
 	if err != nil {
 		t.Fatalf("%s", err)
 	}
 
-	err = Render(app, w, "fail", d)
+	err = response.View(w, "fail", d)
 	if err == nil {
 		t.Fatalf("Successfully rendered an unavailable template...")
 	}

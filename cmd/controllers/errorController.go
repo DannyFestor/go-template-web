@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/DannyFestor/go-template-web.git/cmd/config"
-	"github.com/DannyFestor/go-template-web.git/internals/pages"
 )
 
 type ErrorController struct {
@@ -20,9 +19,9 @@ func (e *ErrorController) Handle(statusCode int) http.Handler {
 		d := data{
 			StatusCode: statusCode,
 		}
-		err := pages.Render(e.app, w, "errors."+strconv.Itoa(statusCode), d)
+		err := e.app.Response.View(w, "errors."+strconv.Itoa(statusCode), d)
 		if err != nil {
-			err := pages.Render(e.app, w, "errors.404", d)
+			err := e.app.Response.View(w, "errors.404", d)
 			if err != nil {
 				e.app.Logger.Error(err.Error())
 				w.Write([]byte("Something went wrong"))

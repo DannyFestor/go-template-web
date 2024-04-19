@@ -4,23 +4,19 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
-	"path/filepath"
 
 	"github.com/DannyFestor/go-template-web.git/cmd/config"
 	"github.com/DannyFestor/go-template-web.git/cmd/routes"
-	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
 // TODO: Add a run function?
 func main() {
 	conf := config.NewConfig()
 
-	templateCache, err := templates.NewTemplateCatche(filepath.Join("resources", "views"))
+	app, err := config.NewApplication()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(templateCache)
-	app := config.NewApplication(templateCache)
 
 	handler := routes.Get(app)
 

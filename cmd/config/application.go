@@ -1,11 +1,11 @@
 package config
 
 import (
-	"html/template"
 	"log/slog"
 	"os"
 	"time"
 
+	"github.com/DannyFestor/go-template-web.git/internals/response"
 	"github.com/lmittmann/tint"
 )
 
@@ -16,19 +16,26 @@ type Application struct {
 	// db
 	// mail
 	// session
-
-	Templates map[string]*template.Template
+	Response *response.Response
 }
 
-func NewApplication(templateCache map[string]*template.Template) *Application {
+func NewApplication() (*Application, error) {
 	loggerOptions := &tint.Options{
 		Level:      slog.LevelDebug,
 		TimeFormat: time.DateTime,
 	}
 	logger := slog.New(tint.NewHandler(os.Stdout, loggerOptions))
 
-	return &Application{
-		Logger:    logger,
-		Templates: templateCache,
+	response, err := response.NewResponse(logger)
+	if err != nil {
+		return nil, err
 	}
+
+	app := &Application{
+		Logger: logger,
+
+		Response: response,
+	}
+
+	return app, nil
 }

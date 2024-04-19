@@ -25,6 +25,11 @@ confirm:
 run:
 	go run ./cmd/app
 
+## test: run all tests in the application
+.PHONY: test
+test:
+	go test ./...
+
 ## db/psql: connect to the database using psql
 .PHONY: db/psql
 db/psql:

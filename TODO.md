@@ -14,9 +14,9 @@
     - [ ] Alpine.js
       - [ ] Alpine.js plugins?
     - [ ] Use DataStar as Alternative to HTMX & Alpine?
-  - [ ] Make a buffer helper
-  - [ ] Load templates from file system
-    - [ ] Embed file system?
+  - [X] Make a buffer helper
+  - [X] Load templates from file system
+    - [X] Embed file system?
   - [ ] Template Functions (?)
     - [ ] Human Readable Date
     - [ ] Other functions?

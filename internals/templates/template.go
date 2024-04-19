@@ -1,14 +1,16 @@
 package templates
 
 import (
+	"fmt"
 	"html/template"
 	"io/fs"
-	"path/filepath"
 	"regexp"
 	"strings"
+
+	"github.com/DannyFestor/go-template-web.git/resources"
 )
 
-func NewTemplateCatche(pagesDir string) (map[string]*template.Template, error) {
+func NewTemplateCatche() (map[string]*template.Template, error) {
 	tmplFuncs := template.FuncMap{}
 
 	cache := make(map[string]*template.Template)
@@ -22,7 +24,7 @@ func NewTemplateCatche(pagesDir string) (map[string]*template.Template, error) {
 	partials := []string{}
 	partialPattern := regexp.MustCompile("^.*.partial.tmpl")
 
-	err := filepath.WalkDir(pagesDir, func(path string, d fs.DirEntry, err error) error {
+	err := fs.WalkDir(resources.EmbeddedFiles, "views", func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() || err != nil {
 			return err
 		}
@@ -41,6 +43,7 @@ func NewTemplateCatche(pagesDir string) (map[string]*template.Template, error) {
 
 		return nil
 	})
+
 	if err != nil {
 		return nil, err
 	}
@@ -50,26 +53,27 @@ func NewTemplateCatche(pagesDir string) (map[string]*template.Template, error) {
 		// Makes resources/views/user/dashboard.page.tmpl -> user.dashboard
 		// Supports Path Nesting and Same Page Names by using directory as namespace
 		name := strings.TrimSuffix(page, ".page.tmpl")
-		name = strings.TrimPrefix(name, pagesDir+"/")
-		// name := strings.TrimPrefix(page, pagesDir+"/")
+		name = strings.TrimPrefix(name, "views/")
 		name = strings.ReplaceAll(name, "/", ".")
 
-		tmpl, err := template.New("base").Funcs(tmplFuncs).ParseFiles(page)
+		tmpl, err := template.New("base").Funcs(tmplFuncs).ParseFS(resources.EmbeddedFiles, page)
 		if err != nil {
 			return nil, err
 		}
 
-		tmpl, err = tmpl.ParseFiles(layouts...)
+		tmpl, err = tmpl.ParseFS(resources.EmbeddedFiles, layouts...)
 		if err != nil {
 			return nil, err
 		}
 
-		tmpl, err = tmpl.ParseFiles(partials...)
+		tmpl, err = tmpl.ParseFS(resources.EmbeddedFiles, partials...)
 		if err != nil {
 			return nil, err
 		}
 
 		cache[name] = tmpl
+
+		fmt.Println(name, page)
 	}
 
 	return cache, nil

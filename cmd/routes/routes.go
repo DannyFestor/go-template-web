@@ -8,7 +8,7 @@ import (
 	"github.com/DannyFestor/go-template-web.git/cmd/middleware"
 )
 
-func Get(app *config.Application) http.Handler {
+func Get(app *config.Application) (http.Handler, error) {
 	mw := middleware.Middleware{
 		App: app,
 	}
@@ -18,11 +18,15 @@ func Get(app *config.Application) http.Handler {
 	)
 
 	controllers := controllers.Init(app)
+	web, err := web(controllers)
+	if err != nil {
+		return nil, err
+	}
 
 	mux := http.NewServeMux()
 
 	mux.Handle("/api/v1/", http.StripPrefix("/api/v1", api()))
-	mux.Handle("/", web(controllers))
+	mux.Handle("/", web)
 
-	return middlewares(mux)
+	return middlewares(mux), nil
 }

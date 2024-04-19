@@ -1,1 +1,4 @@
 .env
+
+resources/public/css/*
+resources/public/js/*

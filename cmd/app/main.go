@@ -18,7 +18,10 @@ func main() {
 		panic(err)
 	}
 
-	handler := routes.Get(app)
+	handler, err := routes.Get(app)
+	if err != nil {
+		panic(err)
+	}
 
 	srv := http.Server{
 		Addr:         conf.Port,

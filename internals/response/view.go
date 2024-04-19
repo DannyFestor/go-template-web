@@ -19,9 +19,10 @@ func (r *Response) View(w io.Writer, name string, data any) error {
 	buf := new(bytes.Buffer)
 	err := tmpl.Execute(buf, data)
 	if err != nil {
-		r.Logger.Error(err.Error())
+		// TODO: Error Helper Wrapper
+		msg := fmt.Sprintf("Error executing template: %s\nReason: %s", name, err.Error())
 		w.Write([]byte("Something went wrong"))
-		return err
+		return errors.New(msg)
 	}
 
 	buf.WriteTo(w)

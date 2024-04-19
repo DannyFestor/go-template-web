@@ -3,7 +3,6 @@ package response
 import (
 	"html/template"
 	"log/slog"
-	"path/filepath"
 
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
@@ -14,7 +13,7 @@ type Response struct {
 }
 
 func NewResponse(logger *slog.Logger) (*Response, error) {
-	templateCache, err := templates.NewTemplateCatche(filepath.Join("resources", "views"))
+	templateCache, err := templates.NewTemplateCatche()
 	if err != nil {
 		return nil, err
 	}

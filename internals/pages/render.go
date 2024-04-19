@@ -4,12 +4,12 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"net/http"
+	"io"
 
 	"github.com/DannyFestor/go-template-web.git/cmd/config"
 )
 
-func Render(app *config.Application, w http.ResponseWriter, name string, data any) error {
+func Render(app *config.Application, w io.Writer, name string, data any) error {
 	tmpl, ok := app.Templates[name]
 	if !ok {
 		// TODO: Error Helper Wrapper

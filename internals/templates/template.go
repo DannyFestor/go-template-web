@@ -1,7 +1,6 @@
 package templates
 
 import (
-	"fmt"
 	"html/template"
 	"io/fs"
 	"path/filepath"
@@ -45,10 +44,6 @@ func NewTemplateCatche(pagesDir string) (map[string]*template.Template, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("Pages", pages)
-	fmt.Println("Layouts", layouts)
-	fmt.Println("Partials", partials)
 
 	for _, page := range pages {
 		// Normalize Page Names to remove path and suffix

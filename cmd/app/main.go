@@ -11,6 +11,7 @@ import (
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
+// TODO: Add a run function?
 func main() {
 	conf := config.NewConfig()
 

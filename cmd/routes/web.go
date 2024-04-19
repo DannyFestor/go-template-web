@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"io/fs"
 	"net/http"
 	"strings"
@@ -13,30 +12,25 @@ import (
 func web(c *controllers.Controllers) (*http.ServeMux, error) {
 	mux := http.NewServeMux()
 
-	// mux.Handle("GET /", assets)
-	// mux.Handle("GET /", c.HomeController.Index())
 	mux.Handle("GET /dashboard", c.UserController.Dashboard())
 
-	mux.Handle("GET /", handleDefault(c))
-
-	// mux.Handle("GET /*", c.ErrorController.Handle(404))
+	mux.Handle("GET /", handleDefault(c.HomeController.Index(), c.ErrorController.Handle(404)))
 
 	return mux, nil
 }
 
-func handleDefault(c *controllers.Controllers) http.Handler {
+func handleDefault(c http.Handler, e http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			public, err := fs.Sub(resources.EmbeddedFiles, "public")
 			if err != nil {
-				c.ErrorController.Handle(404).ServeHTTP(w, r)
+				e.ServeHTTP(w, r)
 				return
 			}
 
 			file, err := public.Open(strings.TrimPrefix(r.URL.Path, "/"))
 			if err != nil {
-				fmt.Println(err)
-				c.ErrorController.Handle(404).ServeHTTP(w, r)
+				e.ServeHTTP(w, r)
 				return
 			}
 			defer file.Close()
@@ -45,6 +39,6 @@ func handleDefault(c *controllers.Controllers) http.Handler {
 			return
 		}
 
-		c.HomeController.Index().ServeHTTP(w, r)
+		c.ServeHTTP(w, r)
 	})
 }

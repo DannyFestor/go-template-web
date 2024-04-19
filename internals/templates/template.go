@@ -1,7 +1,6 @@
 package templates
 
 import (
-	"fmt"
 	"html/template"
 	"io/fs"
 	"regexp"
@@ -72,8 +71,6 @@ func NewTemplateCatche() (map[string]*template.Template, error) {
 		}
 
 		cache[name] = tmpl
-
-		fmt.Println(name, page)
 	}
 
 	return cache, nil

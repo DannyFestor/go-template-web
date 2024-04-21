@@ -2,19 +2,17 @@ package response
 
 import (
 	"html/template"
-	"log/slog"
 
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
 type Response struct {
-	Logger    *slog.Logger
 	Templates map[string]*template.Template
 
-	HtmxKey string
+	htmxKey string
 }
 
-func NewResponse(logger *slog.Logger) (*Response, error) {
+func NewResponse(htmxKey string) (*Response, error) {
 	templateCache, err := templates.NewTemplateCatche()
 	if err != nil {
 		return nil, err
@@ -22,9 +20,8 @@ func NewResponse(logger *slog.Logger) (*Response, error) {
 
 	response := &Response{
 		Templates: templateCache,
-		Logger:    logger,
 
-		HtmxKey: "HtmxRequest",
+		htmxKey: htmxKey,
 	}
 
 	return response, nil

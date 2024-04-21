@@ -10,8 +10,6 @@ import (
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
-var HtmxKey = "HtmxRequest"
-
 func (rs *Response) View(w io.Writer, rq *http.Request, name string, data *templates.Data) error {
 	tmpl, ok := rs.Templates[name]
 	if !ok {
@@ -22,8 +20,7 @@ func (rs *Response) View(w io.Writer, rq *http.Request, name string, data *templ
 	}
 
 	executedTemplate := "base"
-	fmt.Println(rq.Context().Value(rs.HtmxKey))
-	if rq.Context().Value(rs.HtmxKey).(bool) {
+	if rq.Context().Value(rs.htmxKey).(bool) {
 		executedTemplate = "body"
 	}
 

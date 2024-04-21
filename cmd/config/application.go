@@ -17,6 +17,8 @@ type Application struct {
 	// mail
 	// session
 	Response *response.Response
+
+	ContextKeys *ContextKeys
 }
 
 func NewApplication() (*Application, error) {
@@ -26,7 +28,11 @@ func NewApplication() (*Application, error) {
 	}
 	logger := slog.New(tint.NewHandler(os.Stdout, loggerOptions))
 
-	response, err := response.NewResponse(logger)
+	contextKeys := &ContextKeys{
+		Htmx: "HtmxRequest",
+	}
+
+	response, err := response.NewResponse(string(contextKeys.Htmx))
 	if err != nil {
 		return nil, err
 	}
@@ -35,6 +41,8 @@ func NewApplication() (*Application, error) {
 		Logger: logger,
 
 		Response: response,
+
+		ContextKeys: contextKeys,
 	}
 
 	return app, nil

@@ -501,6 +501,9 @@ video {
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
+.inline {
+  display: inline;
+}
 .flex {
   display: flex;
 }

@@ -10,6 +10,8 @@ import (
 type Response struct {
 	Logger    *slog.Logger
 	Templates map[string]*template.Template
+
+	HtmxKey string
 }
 
 func NewResponse(logger *slog.Logger) (*Response, error) {
@@ -21,6 +23,8 @@ func NewResponse(logger *slog.Logger) (*Response, error) {
 	response := &Response{
 		Templates: templateCache,
 		Logger:    logger,
+
+		HtmxKey: "HtmxRequest",
 	}
 
 	return response, nil

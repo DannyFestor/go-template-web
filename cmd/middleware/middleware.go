@@ -6,8 +6,6 @@ import (
 	"github.com/DannyFestor/go-template-web.git/cmd/config"
 )
 
-type ContextKey string
-
 type Middleware struct {
 	App *config.Application
 }

@@ -12,6 +12,30 @@
     }">
         <div x-text="message" @click="message += ', because it rocks'"></div>
     </div>
+
+    <div x-data="Data">
+        <dix x-text="'Loading HTMX in ' + countdown + 's'"></div>
+    </div>
+
+    <div hx-get="/"
+         hx-trigger="load delay:3s"
+         hx-swap="outerHTML"></div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data("Data", () => ({
+                countdown: 3,
+
+                init() {
+                    const interval = setInterval(() => {
+                        this.countdown--;
+
+                        if (this.countdown <= 0) clearInterval(interval);
+                    }, 1000);
+                },
+            }));
+        });
+    </script>
 </section>
 
 {{ end }}

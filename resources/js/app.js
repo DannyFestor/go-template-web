@@ -2,12 +2,8 @@ import '../css/styles.css';
 
 import Alpine from 'alpinejs';
 
+window.htmx = require('htmx.org');
+
 window.Alpine = Alpine;
 Alpine.start();
 
-document.addEventListener('DOMContentLoaded', () => {
-});
-
-document.addEventListener('alpine:init', () => {
-    console.log('Alpine Loaded');
-});

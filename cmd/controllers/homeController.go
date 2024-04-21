@@ -16,7 +16,6 @@ func (c *HomeController) Index() http.Handler {
 		type data struct{}
 		err := c.response.View(w, r, "home", &templates.Data{})
 		if err != nil {
-			// c.response.Error(err.Error())
 			w.Write([]byte("Something went wrong"))
 		}
 	})

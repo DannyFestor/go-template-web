@@ -8,11 +8,9 @@ import (
 
 type Response struct {
 	Templates map[string]*template.Template
-
-	htmxKey string
 }
 
-func NewResponse(htmxKey string) (*Response, error) {
+func NewResponse() (*Response, error) {
 	templateCache, err := templates.NewTemplateCatche()
 	if err != nil {
 		return nil, err
@@ -20,8 +18,6 @@ func NewResponse(htmxKey string) (*Response, error) {
 
 	response := &Response{
 		Templates: templateCache,
-
-		htmxKey: htmxKey,
 	}
 
 	return response, nil

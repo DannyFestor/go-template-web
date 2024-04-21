@@ -15,12 +15,11 @@ func (rs *Response) View(w io.Writer, rq *http.Request, name string, data *templ
 	if !ok {
 		// TODO: Error Helper Wrapper
 		msg := fmt.Sprintf("Template not found: %s\n", name)
-		w.Write([]byte("Something went wrong"))
 		return errors.New(msg)
 	}
 
 	executedTemplate := "base"
-	if rq.Context().Value(rs.htmxKey).(bool) {
+	if rq.Header.Get("Hx-Request") == "true" {
 		executedTemplate = "body"
 	}
 
@@ -29,7 +28,6 @@ func (rs *Response) View(w io.Writer, rq *http.Request, name string, data *templ
 	if err != nil {
 		// TODO: Error Helper Wrapper
 		msg := fmt.Sprintf("Error executing template: %s\nReason: %s", name, err.Error())
-		w.Write([]byte("Something went wrong"))
 		return errors.New(msg)
 	}
 

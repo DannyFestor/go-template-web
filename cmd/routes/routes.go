@@ -15,7 +15,6 @@ func Get(app *config.Application) (http.Handler, error) {
 
 	middlewares := middleware.Chain(
 		mw.Log,
-		mw.IsHtmxRequest,
 	)
 
 	controllers := controllers.Init(app)

@@ -9,7 +9,10 @@ type Data struct {
 
 func AddDefaultData(td *Data, r *http.Request) *Data {
 	if td == nil {
-		td = &Data{}
+		td = &Data{
+			StatusCode: 200,
+			Route:      "/",
+		}
 	}
 
 	td.Route = r.URL.Path

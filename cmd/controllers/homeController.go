@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/DannyFestor/go-template-web.git/internals/response"
+	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
 type HomeController struct {
@@ -13,7 +14,7 @@ type HomeController struct {
 func (c *HomeController) Index() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		type data struct{}
-		err := c.response.View(w, "home", data{})
+		err := c.response.View(w, r, "home", &templates.Data{})
 		if err != nil {
 			// c.response.Error(err.Error())
 			w.Write([]byte("Something went wrong"))

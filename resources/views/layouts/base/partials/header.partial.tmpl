@@ -1,12 +1,14 @@
 {{ define "header" }}
 <nav class="flex flex-row w-full h-16 border-b">
     <ul class="flex flex-row">
-        {{ template "navlink" data "label" "Home" "url" "/" }}
-        {{ template "navlink" data "label" "Dashboard" "url" "/dashboard" }}
+        {{ template "navlink" data "label" "Home" "url" "/" "route" .Route }}
+        {{ template "navlink" data "label" "Dashboard" "url" "/dashboard" "route" .Route }}
     </ul>
 </nav>
 {{ end }}
 
 {{ define "navlink" }}
-<a href="{{ .url }}" class="flex items-center hover:bg-slate-200 px-2"><li class="flex items-center">{{ .label }}</li></a>
+<a href="{{ .url }}" class="flex items-center {{ if eq .route .url }}bg-slate-100{{ end}} hover:bg-slate-200 px-2">
+    <li class="flex items-center">{{ .label }}</li>
+</a>
 {{ end }}

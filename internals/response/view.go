@@ -5,10 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
+
+	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
-func (r *Response) View(w io.Writer, name string, data any) error {
-	tmpl, ok := r.Templates[name]
+func (rs *Response) View(w io.Writer, rq *http.Request, name string, data *templates.Data) error {
+	tmpl, ok := rs.Templates[name]
 	if !ok {
 		// TODO: Error Helper Wrapper
 		msg := fmt.Sprintf("Template not found: %s\n", name)
@@ -17,7 +20,7 @@ func (r *Response) View(w io.Writer, name string, data any) error {
 	}
 
 	buf := new(bytes.Buffer)
-	err := tmpl.Execute(buf, data)
+	err := tmpl.Execute(buf, templates.AddDefaultData(data, rq))
 	if err != nil {
 		// TODO: Error Helper Wrapper
 		msg := fmt.Sprintf("Error executing template: %s\nReason: %s", name, err.Error())

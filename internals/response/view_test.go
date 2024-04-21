@@ -2,36 +2,37 @@ package response
 
 import (
 	"html/template"
-	"io"
+	"net/http"
+	"net/http/httptest"
 
-	// "io"
 	"testing"
+
+	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
 func TestView(t *testing.T) {
-	templates := make(map[string]*template.Template)
+	tmplMap := make(map[string]*template.Template)
 
 	tmpl, err := template.New("base").Parse("")
 	if err != nil {
 		t.Fatalf("%s", err)
 	}
 
-	templates["ok"] = tmpl
+	tmplMap["ok"] = tmpl
 
 	response := &Response{
-		Templates: templates,
+		Templates: tmplMap,
 	}
 
-	type data struct{}
-	var d data
-	w := io.Discard
+	r := httptest.NewRequest(http.MethodGet, "/", nil)
+	w := httptest.NewRecorder()
 
-	err = response.View(w, "ok", d)
+	err = response.View(w, r, "ok", &templates.Data{})
 	if err != nil {
 		t.Fatalf("%s", err)
 	}
 
-	err = response.View(w, "fail", d)
+	err = response.View(w, r, "fail", &templates.Data{})
 	if err == nil {
 		t.Fatalf("Successfully rendered an unavailable template...")
 	}

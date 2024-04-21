@@ -3,6 +3,16 @@
 {{ define "title" }}Home{{ end }}
 
 {{ define "body" }}
-<section>Body</section>
+<section>
+    Body
+
+    <div
+    x-data="{ 
+        message: 'I ❤️ Alpine' 
+    }">
+        <div x-text="message" @click="message += ', because it rocks'"></div>
+    </div>
+</section>
+
 {{ end }}
 

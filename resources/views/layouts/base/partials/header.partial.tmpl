@@ -1,8 +1,13 @@
 {{ define "header" }}
-<nav>
-    <ul>
-        <a href="/"><li>Home</li></a>
-        <a href="/dashboard"><li>Dashboard</li></a>
+<nav class="flex flex-row w-full h-16 border-b">
+    <ul class="flex flex-row">
+        <a href="/" class="flex items-center p-4 hover:bg-slate-200"><li>Home</li></a>
+        <a href="/dashboard" class="flex items-center p-4 hover:bg-slate-200"><li>Dashboard</li></a>
+        {{ template "navlink" "Test" }}
     </ul>
 </nav>
+{{ end }}
+
+{{ define "navlink" }}
+{{ . }}
 {{ end }}

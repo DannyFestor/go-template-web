@@ -13,9 +13,6 @@ type UserController struct {
 
 func (c *UserController) Dashboard() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		err := c.response.View(w, r, "user.dashboard", &templates.Data{})
-		if err != nil {
-			w.Write([]byte("Something went wrong"))
-		}
+		c.response.View(w, r, "user.dashboard", &templates.Data{})
 	})
 }

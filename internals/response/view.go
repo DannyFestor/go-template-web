@@ -2,20 +2,18 @@ package response
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
-	"io"
 	"net/http"
 
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
-func (rs *Response) View(w io.Writer, rq *http.Request, templName string, data *templates.Data) error {
+func (rs *Response) View(w http.ResponseWriter, rq *http.Request, templName string, data *templates.Data) {
 	tmpl, ok := rs.Templates[templName]
 	if !ok {
 		// TODO: Error Helper Wrapper
-		msg := fmt.Sprintf("Template not found: %s\n", templName)
-		return errors.New(msg)
+		rs.SomethingWentWrong(w, fmt.Errorf("internals/response/view: Template not found: %s", templName))
+		return
 	}
 
 	executedTemplate := rq.Context().Value("block").(string)
@@ -30,14 +28,11 @@ func (rs *Response) View(w io.Writer, rq *http.Request, templName string, data *
 		templates.AddDefaultData(data, rq), // template that will be executed
 	)
 
-	err = errors.New("test error")
 	if err != nil {
 		// TODO: Error Helper Wrapper
-		w.Write([]byte("Something went wrong"))
-		msg := fmt.Sprintf("Error executing template: %s\nReason: %s\n", templName, err.Error())
-		return errors.New(msg)
+		rs.SomethingWentWrong(w, fmt.Errorf("internals/response/view: Error executing template: %s", templName))
+		return
 	}
 
 	buf.WriteTo(w)
-	return nil
 }

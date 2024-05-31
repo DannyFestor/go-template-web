@@ -14,6 +14,7 @@ func Get(app *config.Application) (http.Handler, error) {
 	}
 
 	middlewares := middleware.Chain(
+		mw.RecoverPanic,
 		mw.Log,
 	)
 

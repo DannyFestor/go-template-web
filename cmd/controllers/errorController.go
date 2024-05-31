@@ -17,15 +17,7 @@ func (e *ErrorController) Handle(statusCode int) http.Handler {
 		d := &templates.Data{
 			StatusCode: statusCode,
 		}
-		err := e.app.Response.View(w, r, "errors."+strconv.Itoa(statusCode), d)
-		if err != nil {
-			e.app.TemplateNotFoundError(r.URL.Path)
-			err := e.app.Response.View(w, r, "errors.404", d)
-			if err != nil {
-				e.app.Logger.Error(err.Error())
-				w.Write([]byte("Something went wrong"))
-				return
-			}
-		}
+
+		e.app.Response.NotFound(w, r, "errors."+strconv.Itoa(statusCode), d)
 	})
 }

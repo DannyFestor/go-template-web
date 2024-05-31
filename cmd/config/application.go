@@ -26,7 +26,7 @@ func NewApplication() (*Application, error) {
 	}
 	logger := slog.New(tint.NewHandler(os.Stdout, loggerOptions))
 
-	response, err := response.NewResponse()
+	response, err := response.NewResponse(logger)
 	if err != nil {
 		return nil, err
 	}

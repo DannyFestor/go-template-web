@@ -30,9 +30,11 @@ func (rs *Response) View(w io.Writer, rq *http.Request, templName string, data *
 		templates.AddDefaultData(data, rq), // template that will be executed
 	)
 
+	err = errors.New("test error")
 	if err != nil {
 		// TODO: Error Helper Wrapper
-		msg := fmt.Sprintf("Error executing template: %s\nReason: %s", templName, err.Error())
+		w.Write([]byte("Something went wrong"))
+		msg := fmt.Sprintf("Error executing template: %s\nReason: %s\n", templName, err.Error())
 		return errors.New(msg)
 	}
 

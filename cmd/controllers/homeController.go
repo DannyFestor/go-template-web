@@ -3,13 +3,13 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/DannyFestor/go-template-web.git/cmd/config"
 	"github.com/DannyFestor/go-template-web.git/cmd/helpers"
-	"github.com/DannyFestor/go-template-web.git/internals/response"
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
 type HomeController struct {
-	response *response.Response
+	app *config.Application
 }
 
 func (c *HomeController) Index() http.Handler {
@@ -17,6 +17,6 @@ func (c *HomeController) Index() http.Handler {
 		if r.Header.Get("Hx-Request") == "true" {
 			r = helpers.SetRenderBlock(r, "test")
 		}
-		c.response.View(w, r, "home", &templates.Data{})
+		c.app.Response.View(w, r, "home", &templates.Data{})
 	})
 }

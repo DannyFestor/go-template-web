@@ -13,7 +13,7 @@ type Controllers struct {
 func Init(app *config.Application) *Controllers {
 	return &Controllers{
 		ErrorController: &ErrorController{app: app},
-		HomeController:  &HomeController{response: app.Response},
-		UserController:  &UserController{response: app.Response},
+		HomeController:  &HomeController{app: app},
+		UserController:  &UserController{app: app},
 	}
 }

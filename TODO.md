@@ -29,7 +29,7 @@
     - [ ] Form Data
       - [ ] GolangCollage Forms?
 - [ ] Form Validation Helpers
-- [ ] App Error Helpers
+- [X] App Error Helpers
 - [X] Make app configuration
 - [ ] Connect to DB
 - [ ] Connect to Redis (?)
@@ -62,7 +62,7 @@
   - [ ] CORS (?)
   - [ ] CSRF
   - [ ] Secure Headers
-  - [ ] Panic Helper
+  - [X] Panic Helper
   - [ ] Graceful Shutdown
   - [ ] Get User from Session
     - [ ] Auth

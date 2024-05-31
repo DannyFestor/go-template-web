@@ -18,7 +18,7 @@ func Get(app *config.Application) (http.Handler, error) {
 	)
 
 	controllers := controllers.Init(app)
-	web, err := web(controllers)
+	web, err := web(mw, controllers)
 	if err != nil {
 		return nil, err
 	}

@@ -8,5 +8,4 @@ func NewConfig() *Config {
 	return &Config{
 		Port: ":4000",
 	}
-
 }

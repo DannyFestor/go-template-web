@@ -6,17 +6,21 @@ import (
 	"strings"
 
 	"github.com/DannyFestor/go-template-web.git/cmd/controllers"
+	"github.com/DannyFestor/go-template-web.git/cmd/middleware"
 	"github.com/DannyFestor/go-template-web.git/resources"
 )
 
-func web(c *controllers.Controllers) (*http.ServeMux, error) {
+func web(mw *middleware.Middleware, c *controllers.Controllers) (http.Handler, error) {
 	mux := http.NewServeMux()
+	webMiddlewares := middleware.Chain(
+		mw.HandleHtmxRequest,
+	)
 
 	mux.Handle("GET /dashboard", c.UserController.Dashboard())
 
 	mux.Handle("GET /", handleDefault(c.HomeController.Index(), c.ErrorController.Handle(404)))
 
-	return mux, nil
+	return webMiddlewares(mux), nil
 }
 
 func handleDefault(c http.Handler, e http.Handler) http.Handler {

@@ -10,24 +10,29 @@ import (
 	"github.com/DannyFestor/go-template-web.git/internals/templates"
 )
 
-func (rs *Response) View(w io.Writer, rq *http.Request, name string, data *templates.Data) error {
-	tmpl, ok := rs.Templates[name]
+func (rs *Response) View(w io.Writer, rq *http.Request, templName string, data *templates.Data) error {
+	tmpl, ok := rs.Templates[templName]
 	if !ok {
 		// TODO: Error Helper Wrapper
-		msg := fmt.Sprintf("Template not found: %s\n", name)
+		msg := fmt.Sprintf("Template not found: %s\n", templName)
 		return errors.New(msg)
 	}
 
-	executedTemplate := "base"
-	if rq.Header.Get("Hx-Request") == "true" {
-		executedTemplate = "body"
+	executedTemplate := rq.Context().Value("block").(string)
+	if executedTemplate == "" {
+		executedTemplate = "base"
 	}
 
 	buf := new(bytes.Buffer)
-	err := tmpl.ExecuteTemplate(buf, executedTemplate, templates.AddDefaultData(data, rq))
+	err := tmpl.ExecuteTemplate(
+		buf,                                // buffer written to
+		executedTemplate,                   // rendered block, will be set by isHtmxRequest middleware or overwritten controller
+		templates.AddDefaultData(data, rq), // template that will be executed
+	)
+
 	if err != nil {
 		// TODO: Error Helper Wrapper
-		msg := fmt.Sprintf("Error executing template: %s\nReason: %s", name, err.Error())
+		msg := fmt.Sprintf("Error executing template: %s\nReason: %s", templName, err.Error())
 		return errors.New(msg)
 	}
 

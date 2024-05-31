@@ -17,8 +17,9 @@
   - [X] Make a buffer helper
   - [X] Load templates from file system
     - [X] Embed file system?
-  - [ ] Template Functions (?)
+  - [X] Template Functions (?)
     - [ ] Human Readable Date
+    - [X] Current Route
     - [ ] Other functions?
   - [ ] Standard Data
     - [ ] Current Date

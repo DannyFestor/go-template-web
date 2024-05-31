@@ -26,6 +26,11 @@ func (mw *Middleware) Log(next http.Handler) http.Handler {
 
 		next.ServeHTTP(ww, r)
 
-		mw.App.Logger.Info(r.RemoteAddr, "method", r.Method, "path", r.URL.Path, "time", time.Since(start))
+		isHtmxRequest := false
+		if r.Header.Get("Hx-Request") == "true" {
+			isHtmxRequest = true
+		}
+
+		mw.App.Logger.Info(r.RemoteAddr, "method", r.Method, "path", r.URL.Path, "htmx", isHtmxRequest, "time", time.Since(start))
 	})
 }

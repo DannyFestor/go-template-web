@@ -19,6 +19,7 @@ func (e *ErrorController) Handle(statusCode int) http.Handler {
 		}
 		err := e.app.Response.View(w, r, "errors."+strconv.Itoa(statusCode), d)
 		if err != nil {
+			e.app.TemplateNotFoundError(r.URL.Path)
 			err := e.app.Response.View(w, r, "errors.404", d)
 			if err != nil {
 				e.app.Logger.Error(err.Error())

@@ -19,7 +19,7 @@ func NewTemplateCatche() (map[string]*template.Template, error) {
 	layoutPattern := regexp.MustCompile("^.*.layout.tmpl$")
 
 	partials := []string{}
-	partialPattern := regexp.MustCompile("^.*.partial.tmpl")
+	partialPattern := regexp.MustCompile("^.*.partial.tmpl$")
 
 	err := fs.WalkDir(resources.EmbeddedFiles, "views", func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() || err != nil {
